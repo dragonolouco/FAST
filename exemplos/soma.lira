@@ -1,0 +1,8 @@
+:: Trecho reto: desce para .brx / .brxe (BRX-Linguagens, subconjunto 0).
+nucleo Soma
+celula base = 10
+celula ajuste = 3 * 4
+grava base = base + ajuste
+grava base = base * 2 - 4
+mostra "resultado"
+mostra base

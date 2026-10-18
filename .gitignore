@@ -1,0 +1,7 @@
+lfvm
+lfvm.exe
+familia/
+modelo/
+__pycache__/
+*.lfbc
+*.brxe

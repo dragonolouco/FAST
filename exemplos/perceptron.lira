@@ -1,0 +1,45 @@
+:: Perceptron AND de 3 bits — metodo Lira, executado pela VM .lira
+:: Liga self-continuing-pattern (metodo verificavel) + BRX FAST (rota) + linguagem propria.
+nucleo Perceptron
+
+celula pesos = trilha(0.2, -0.1, 0.4)
+celula vies = 0.05
+celula taxa = 0.2
+
+pulso prever(x)
+  grava s = ponto(pesos, x) + vies
+  se s > 0
+    entrega 1
+  senao
+    entrega 0
+  fecha
+fecha
+
+pulso treinar(x, y)
+  grava palpite = prever(x)
+  grava erro = y - palpite
+  varre i em faixa(tamanho(pesos))
+    grava pesos[i] = pesos[i] + taxa * erro * x[i]
+  fecha
+  grava vies = vies + taxa * erro
+  entrega erro
+fecha
+
+pulso principal()
+  grava amostras = trilha(trilha(0, 0, 0), trilha(0, 0, 1), trilha(0, 1, 0), trilha(0, 1, 1), trilha(1, 0, 0), trilha(1, 0, 1), trilha(1, 1, 0), trilha(1, 1, 1))
+  grava alvos = trilha(0, 0, 0, 0, 0, 0, 0, 1)
+  varre epoca em faixa(40)
+    varre i em faixa(tamanho(amostras))
+      treinar(amostras[i], alvos[i])
+    fecha
+  fecha
+  mostra prever(trilha(1, 1, 1))
+  mostra prever(trilha(1, 0, 1))
+  mostra prever(trilha(0, 0, 0))
+  mostra pesos
+  mostra vies
+  entrega trilha(pesos, vies, prever(trilha(1, 1, 1)), prever(trilha(0, 1, 0)))
+fecha
+
+principal()
+entrega trilha(pesos, vies, prever(trilha(1, 1, 1)), prever(trilha(0, 1, 0)))
